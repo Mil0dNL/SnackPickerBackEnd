@@ -14,6 +14,9 @@ public class ProductService {
     @Autowired
     private ProductRepository productRepository;
 
+    public void deleteProduct(long id)
+    {productRepository.deleteById(id);}
+
     public Product saveProduct(Product product)
     {return productRepository.save(product);}
 

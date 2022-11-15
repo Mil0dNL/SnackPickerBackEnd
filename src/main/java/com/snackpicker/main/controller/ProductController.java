@@ -38,6 +38,17 @@ public class ProductController {
         {return "Error creating product";}
     }
 
+    @DeleteMapping("/delete/{id}")
+    public void deleteById(@PathVariable(value="id") long id)
+    {
+        try
+        {
+            productService.deleteProduct(id);
+        }
+        catch(Exception e) {e.printStackTrace();}
+    }
+
+
     @GetMapping("/{id}")
     public Product findById(@PathVariable(value = "id") long id)
     {
