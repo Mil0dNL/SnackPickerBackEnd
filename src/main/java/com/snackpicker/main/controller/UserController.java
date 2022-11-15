@@ -2,6 +2,7 @@ package com.snackpicker.main.controller;
 
 import com.snackpicker.main.model.User;
 import com.snackpicker.main.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -11,6 +12,7 @@ import java.util.List;
 @RequestMapping("/users")
 public class UserController {
 
+    @Autowired
     private UserService userService;
 
     @GetMapping()
@@ -26,12 +28,14 @@ public class UserController {
     @PostMapping
     public String create(@RequestBody User user)
     {
+        System.out.println("CreateReq");
         try
         {
             userService.saveUser(user);
-            return "Succesfully created user.";
+            return "Successfully created user.";
         }
-        catch(Exception e) { return "error creating user.";}
+        catch(Exception e) {         e.printStackTrace();
+            return "error creating user.";}
     }
 
 

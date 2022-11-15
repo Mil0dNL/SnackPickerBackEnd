@@ -1,0 +1,52 @@
+package com.snackpicker.main.controller;
+
+import com.snackpicker.main.model.Product;
+import com.snackpicker.main.service.ProductService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+@RestController
+@CrossOrigin
+@RequestMapping("/products")
+public class ProductController {
+
+    @Autowired
+    private ProductService productService;
+
+    @GetMapping
+    public List<Product> getAll()
+    {
+        try
+        {
+            return productService.getAll();
+        }
+        catch(Exception e)
+        {return null;}
+    }
+
+    @PostMapping
+    public String create(@RequestBody Product product)
+    {
+        try
+        {
+            productService.saveProduct(product);
+            return "new product created";
+        }
+        catch(Exception e)
+        {return "Error creating product";}
+    }
+
+    @GetMapping("/{id}")
+    public Product findById(@PathVariable(value = "id") long id)
+    {
+        try
+        {
+            return productService.getById(id).get();
+        }
+        catch(Exception e)
+        {return null;}
+    }
+
+}
