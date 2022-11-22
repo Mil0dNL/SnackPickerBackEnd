@@ -1,5 +1,6 @@
 package com.snackpicker.main.controller;
 
+import com.snackpicker.main.dto.ProductUpdateDTO;
 import com.snackpicker.main.model.Product;
 import com.snackpicker.main.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,6 +37,16 @@ public class ProductController {
         }
         catch(Exception e)
         {return "Error creating product";}
+    }
+
+    @PutMapping("/update")
+    public Product update(@RequestBody ProductUpdateDTO product)
+    {
+        try
+        {
+            return productService.update(product);
+        }
+        catch(Exception e) {e.printStackTrace(); return null;}
     }
 
     @DeleteMapping("/delete/{id}")

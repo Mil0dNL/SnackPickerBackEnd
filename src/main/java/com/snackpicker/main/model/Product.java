@@ -33,4 +33,10 @@ public class Product {
 
     public Product() {}
 
+    @Override
+    public String toString()
+    {
+        return "id: " + id + " name:" + name + "barcode: " + barcode;
+    }
+
 }
