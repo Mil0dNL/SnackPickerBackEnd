@@ -12,8 +12,13 @@ import java.util.Optional;
 @Service
 public class ProductService {
 
+    private final ProductRepository productRepository;
+
     @Autowired
-    private ProductRepository productRepository;
+    public ProductService(ProductRepository productRepository)
+    {
+        this.productRepository = productRepository;
+    }
 
     public void deleteProduct(long id)
     {productRepository.deleteById(id);}
