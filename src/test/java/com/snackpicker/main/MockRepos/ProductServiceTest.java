@@ -14,7 +14,6 @@ import java.util.List;
 public class ProductServiceTest {
 
     private ProductService productService;
-    private MockProductRepo mockProductRepo;
 
     String productName_1 = "Cookie";
     long productID_1 = 12;
@@ -25,11 +24,14 @@ public class ProductServiceTest {
     String productBarcode_2 = "12345678";
 
 
+    //TODO: Mockito
+
+/*
+
     @BeforeEach
     void setup() throws Exception
     {
         this.mockProductRepo = new MockProductRepo();
-        this.productService = new ProductService(mockProductRepo);
 
         List<Product> products = new ArrayList<Product>();
 
@@ -47,6 +49,8 @@ public class ProductServiceTest {
         products.add(product_2);
 
         mockProductRepo.setupDataBase(products);
+        this.productService = new ProductService(mockProductRepo);
+
     }
 
     @Test
@@ -58,5 +62,7 @@ public class ProductServiceTest {
         Assertions.assertEquals(productBarcode_1, product.getBarcode());
         Assertions.assertEquals(productName_1, product.getName());
     }
+
+*/
 
 }

@@ -1,11 +1,14 @@
 package com.snackpicker.main.controller;
 
+import com.snackpicker.main.dto.ProductDTO;
 import com.snackpicker.main.dto.ProductUpdateDTO;
 import com.snackpicker.main.model.Product;
 import com.snackpicker.main.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.awt.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -13,15 +16,28 @@ import java.util.List;
 @RequestMapping("/products")
 public class ProductController {
 
-    @Autowired
     private ProductService productService;
 
+    @Autowired
+    public ProductController(ProductService productService)
+    {
+        this.productService = productService;
+    }
+
     @GetMapping
-    public List<Product> getAll()
+    public List<ProductDTO> getAll()
     {
         try
         {
-            return productService.getAll();
+            List<Product> products = productService.getAll();
+            List<ProductDTO> dtos = new ArrayList<ProductDTO>();
+
+            for(Product p : products)
+            {
+                dtos.add(new ProductDTO(p));
+            }
+
+            return dtos;
         }
         catch(Exception e)
         {return null;}
