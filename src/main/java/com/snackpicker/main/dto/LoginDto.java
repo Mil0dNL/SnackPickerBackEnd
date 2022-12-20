@@ -1,9 +1,11 @@
 package com.snackpicker.main.dto;
 
+import javax.lang.model.element.Name;
+
 public class LoginDto {
 
-    private String Email;
-    private String Password;
+    public String Email;
+    public String Password;
 
     public String getEmail() {
         return Email;
@@ -19,6 +21,12 @@ public class LoginDto {
 
     public void setPassword(String password) {
         Password = password;
+    }
+
+    @Override
+    public String toString()
+    {
+        return Email+Password;
     }
 
 }

@@ -13,6 +13,14 @@ public class SnackUser {
     private String Email;
     private String PasswordHash;
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     public String getEmail() {
         return Email;
     }

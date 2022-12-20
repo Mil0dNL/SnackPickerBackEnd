@@ -1,5 +1,6 @@
 package com.snackpicker.main.controller;
 
+import com.snackpicker.main.dto.LoggedInUserDto;
 import com.snackpicker.main.dto.LoginDto;
 import com.snackpicker.main.model.SnackUser;
 import com.snackpicker.main.service.AuthService;
@@ -21,15 +22,12 @@ public class AuthController {
         this.authService = authService;
     }
 
-    @GetMapping("register")
-    public ResponseEntity<Void> register()
+    @PostMapping("register")
+    public ResponseEntity<Void> register(@RequestBody LoginDto loginDto)
     {
         try
         {
-            LoginDto dto = new LoginDto();
-            dto.setEmail("ikben@milodorigo.nl");
-            dto.setPassword("Password");
-            authService.register(dto);
+            authService.register(loginDto);
             return ResponseEntity.status(HttpStatus.OK).body(null);
         }
         catch(Exception e)
@@ -39,14 +37,22 @@ public class AuthController {
     }
 
     @PostMapping("login")
-    public ResponseEntity<SnackUser> login(@RequestBody LoginDto loginDto)
+    public ResponseEntity<LoggedInUserDto> login(@RequestBody LoginDto loginDto)
     {
-        System.out.println(loginDto.getEmail() + loginDto.getPassword());
         try
         {
-            if(authService.attemptLogin(loginDto))
+            SnackUser user = authService.attemptLogin(loginDto);
+
+            if(user != null)
             {
-                return ResponseEntity.status(HttpStatus.OK).body(null);
+                String JWT = authService.generateAuthString(user);
+
+                LoggedInUserDto returnDto = new LoggedInUserDto();
+                returnDto.id = user.getId();
+                returnDto.JWT = JWT;
+                returnDto.Email = user.getEmail();
+
+                return ResponseEntity.status(HttpStatus.OK).body(returnDto);
             }
 
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
